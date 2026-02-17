@@ -1,8 +1,7 @@
-tensorflow==2.20.0
-pandas==2.1.3      # latest <3 version
-protobuf>=5.28.0
-numpy==2.4.2
+tensorflow==2.20.0         # keep
+protobuf>=5.28.0            # remove strict 3.20.3 pin
+pandas<3,>=1.4.0            # downgrade from 3.0.0
+streamlit==1.54.0           # keep
+numpy==2.4.2                # check if needed, can leave unpinned
 scikit-learn==1.8.0
-tensorboard==2.20.0
 matplotlib==3.10.8
-streamlit==1.54.0
