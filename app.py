@@ -22,7 +22,7 @@ with open('scaler.pkl', 'rb') as f:
 st.title("Customer Churn Prediction")
 
 # user format
-geo = st.selectbox("Geography", onehot_encoder_geo.categories_[0])
+geography = st.selectbox("Geography", onehot_encoder_geo.categories_[0])
 gender = st.selectbox("Gender",label_encoder_gender.classes_)
 age = st.slider("Age", 18, 92)
 tenure = st.slider("Tenure", 0, 10)
@@ -47,7 +47,7 @@ input_data = pd.DataFrame({
 })
 
 # One-hot encode the geography
-geo_encoded = onehot_encoder_geo.transform([[geo]])
+geo_encoded = onehot_encoder_geo.transform([[geography]]).toarray()
 geo_encoder_df = pd.DataFrame(geo_encoded, columns=onehot_encoder_geo.get_feature_names_out(['Geography']))
 
 # Combine with input data
@@ -59,3 +59,7 @@ input_scaled = scaler.transform(input_data)
 prediction = model.predict(input_scaled)
 prediction_prob = prediction[0][0]
 
+if prediction_prob > 0.5:
+    st.write(f"The customer is likely to churn with a probability of {prediction_prob:.2f}")
+else:
+    st.write(f"The customer is unlikely to churn with a probability of {1 - prediction_prob:.2f}")
